@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Authors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center mb-8">List of Authors</h1>
+
+        {% if authors is not empty %}
+            <div class="text-center mb-6">
+                <p class="text-lg font-semibold">Number of Authors: <span class="text-blue-500">{{ authorCount }}</span></p>
+                <p class="text-lg font-semibold">Total Number of Books: <span class="text-blue-500">{{ totalBooks }}</span></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9">
+                {% for author in authors %}
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img class="w-full h-48 " src="{{ author.picture }}" alt="{{ author.username }}">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold text-gray-800">{{ author.username|upper }}</h2>
+                            <p class="text-gray-600 mb-2">{{ author.email }}</p>
+                            <p class="text-gray-700 font-semibold">{{ author.nb_books }} books</p>
+                            <a href="{{ path('authorDetails', { id: author.id }) }}" class="inline-block mt-4 text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-lg">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <p class="text-center text-gray-600 text-lg">No authors available.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
